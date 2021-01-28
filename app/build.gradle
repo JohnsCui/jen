@@ -54,15 +54,15 @@ android {
     }
     //渠道Flavors
     productFlavors {
-        HuaWei {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "HuaWei"]
+        Huawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Huawei"]
         }
-        xiaomi {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        Xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Xiaomi"]
         }
     }
     //修改生成的apk名字及输出文件夹
-    applicationVariants.all { variant ->
+   /* applicationVariants.all { variant ->
         variant.outputs.each { output ->
             //新名字
             def newName
@@ -75,7 +75,7 @@ android {
                 //Jenkins打包输出到服务器路径
                 timeNow = BUILD_TIME
                 //BUILD_PATH为服务器输出路径
-//                outDirectory = BUILD_PATH
+                outDirectory = BUILD_PATH
                 //AutoBuildTest-v1.0.1-xiaomi-release.apk
                 newName = 'AutoBuildTest-v' + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
             } else {
@@ -89,9 +89,9 @@ android {
                     newName = 'AutoBuildTest-v' + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
                 }
             }
-//            output.outputFile = new File(outDirectory+'/'+timeNow, newName)
+            output.outputFile = new File(outDirectory+'/'+timeNow, newName)
         }
-    }
+    }*/
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
