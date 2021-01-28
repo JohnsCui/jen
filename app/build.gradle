@@ -62,6 +62,39 @@ android {
         }
     }
     //修改生成的apk名字及输出文件夹
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            //新名字
+            def newName
+            //时间戳
+            def timeNow
+            //输出文件夹
+            def outDirectory
+            //是否为Jenkins打包，输出路径不同
+            if ("true".equals(IS_JENKINS)) {
+                //Jenkins打包输出到服务器路径
+                timeNow = BUILD_TIME
+                //BUILD_PATH为服务器输出路径
+
+                //JenkinsTest-v1.0.1-product-release-2019-10-18 10:35:34.apk
+                newName = 'JenkinsTest-v' + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+            } else {
+                //本机打包输出在本机路径
+                timeNow = getDate()
+
+                if ('debug'.equals(variant.buildType.name)) {
+                    newName = "AutoBuildTest-v${APP_VERSION}-debug.apk"
+                } else {
+                    //JenkinsTest-v1.0.1-xiaomi-release.apk
+                    newName = 'JenkinsTest-v' + APP_VERSION + '-' + variant.productFlavors[0].name + '-' + variant.buildType.name + '.apk'
+                }
+            }
+//            打包后放到 app/build/release/时间戳下 包下
+            output.outputFileName = new File("../../../release/${timeNow}", newName)
+        }
+    }
+
+    //修改生成的apk名字及输出文件夹
    /* applicationVariants.all { variant ->
         variant.outputs.each { output ->
             //新名字
